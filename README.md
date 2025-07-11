@@ -47,6 +47,7 @@ Tasks To do:
 ## Roadmap
 Upcoming Feature: Persistent Local Storage
 Currently, tasks exist only in memory and are lost when the program exits.
+Upcoming Feature: Tasks in JSON-Struct format and with timestamps,priority levels, and groupings
 Planned enhancement:
 
 Store tasks in a local file (e.g., tasks.txt or JSON) so that your to-do list is saved between sessions.
