@@ -55,12 +55,12 @@ func add(toDoList *[]Task, scanner *bufio.Scanner, db *os.File) *os.File {
 
 	newTask := Task{id, text, priority}
 	*toDoList = append(*toDoList, newTask)
-	db, err := os.Create(db.Name())
-
+	dbnew, err := os.Create(db.Name())
+	db.Close()
 	if err != nil {
 		log.Fatal("Error, Data Deleted, Please Verify ", err)
 	}
-	writer := bufio.NewWriter(db)
+	writer := bufio.NewWriter(dbnew)
 	for _, task := range *toDoList {
 		_, err := writer.WriteString(strconv.Itoa(task.id) + "," + task.task + "," + strconv.Itoa(task.priority) + "\n")
 		if err != nil {
@@ -72,7 +72,7 @@ func add(toDoList *[]Task, scanner *bufio.Scanner, db *os.File) *os.File {
 		log.Fatal("Error flushing: ", err)
 	}
 	fmt.Println("Task Added!")
-	return db
+	return dbnew
 }
 
 func remove(toDoList *[]Task, scanner *bufio.Scanner, db *os.File) *os.File {
@@ -102,8 +102,9 @@ func remove(toDoList *[]Task, scanner *bufio.Scanner, db *os.File) *os.File {
 	}
 
 	*toDoList = append((*toDoList)[:index], (*toDoList)[index+1:]...)
-	db, err := os.Create(db.Name())
-	writer := bufio.NewWriter(db)
+	newdb, err := os.Create(db.Name())
+	db.Close()
+	writer := bufio.NewWriter(newdb)
 	if err != nil {
 		log.Fatal("Error In deleting Data ", err)
 	}
@@ -118,7 +119,7 @@ func remove(toDoList *[]Task, scanner *bufio.Scanner, db *os.File) *os.File {
 		log.Fatal("Error flushing: ", err)
 	}
 	fmt.Println("Task Eliminated!")
-	return db
+	return newdb
 
 }
 

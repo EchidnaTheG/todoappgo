@@ -12,7 +12,8 @@ import (
 
 func main() {
 	db := utils.VerifyDB()
+	defer db.Close()
 	toDoList := utils.GetFromDB(db)
 	utils.InnerLogic(db, &toDoList)
-	defer db.Close()
+	
 }
