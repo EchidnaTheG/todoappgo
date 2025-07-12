@@ -24,7 +24,7 @@ func tasks(toDoList *[]Task) {
 	}
 	fmt.Println("Tasks To do:")
 	for i, task := range *toDoList {
-		fmt.Printf("  %v. %v\n", i+1, task.task)
+		fmt.Printf("  %v. %v - Priority Level %v\n", i+1, task.task, task.priority)
 	}
 }
 
